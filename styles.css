@@ -14,6 +14,27 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+    text-align: center;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#search {
+    flex: 1;
+    margin-right: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
 .user-card {
     border: 1px solid #ccc;
     padding: 10px;
@@ -21,22 +42,42 @@ body {
     border-radius: 5px;
 }
 
-.delete-btn {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 3px;
+.user-card p {
+    margin: 0;
 }
 
-.toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+.edit,
+.delete,
+.select-checkbox {
+    margin-right: 5px;
 }
 
-.selected {
-    background-color: #ddd;
+.page-number,
+.first-page,
+.previous-page,
+.next-page,
+.last-page {
+    margin-right: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #search {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .user-card {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+    }
 }
