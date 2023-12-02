@@ -1,25 +1,32 @@
 document.addEventListener("DOMContentLoaded", function () {
     const userListContainer = document.getElementById("users-list");
+    const paginationContainer = document.getElementById("pagination");
+    const searchInput = document.getElementById("search");
+    let selectedRows = [];
 
     // Fetch users from the API
     fetch('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
         .then(response => response.json())
         .then(users => {
-            // Display users in the UI
-            users.forEach(user => {
-                const userCard = document.createElement('div');
-                userCard.className = 'user-card';
-                userCard.innerHTML = `
-                    <p><strong>ID:</strong> ${user.id}</p>
-                    <p><strong>Name:</strong> ${user.name}</p>
-                    <p><strong>Email:</strong> ${user.email}</p>
-                    <button class="delete-btn" onclick="deleteUser(${user.id})">Delete</button>
-                `;
-                userListContainer.appendChild(userCard);
+            let filteredUsers = users;
+
+            // Search functionality
+            searchInput.addEventListener("input", function () {
+                const searchTerm = searchInput.value.toLowerCase();
+                filteredUsers = users.filter(user =>
+                    Object.values(user).some(value =>
+                        value.toString().toLowerCase().includes(searchTerm)
+                    )
+                );
+                renderUsers(filteredUsers, 1);
             });
+
+            // Initial rendering
+            renderUsers(filteredUsers, 1);
         })
         .catch(error => console.error('Error fetching users:', error));
 });
+
 
 function deleteUser(userId) {
     // Send a request to the API to delete the user
