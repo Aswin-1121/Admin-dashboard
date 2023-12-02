@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userListContainer = document.getElementById("users-list");
 
     // Fetch users from the API
-    fetch('https://your-api-endpoint.com/users')
+    fetch('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
         .then(response => response.json())
         .then(users => {
             // Display users in the UI
