@@ -5,117 +5,144 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedRows = [];
 
     // Fetch users from the API
-    fetch('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json')
-        .then(response => response.json())
-        .then(users => {
-            let filteredUsers = users;
+const apiUrl = 'https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json';
 
-            // Search functionality
-            searchInput.addEventListener("input", function () {
-                const searchTerm = searchInput.value.toLowerCase();
-                filteredUsers = users.filter(user =>
-                    Object.values(user).some(value =>
-                        value.toString().toLowerCase().includes(searchTerm)
-                    )
-                );
-                renderUsers(filteredUsers, 1);
-            });
+    // Variables to keep track of the state
+    let users = [];
+    let currentPage = 1;
+    let totalPages = 1;
+    let selectedRows = [];
 
-            // Initial rendering
-            renderUsers(filteredUsers, 1);
-        })
-        .catch(error => console.error('Error fetching users:', error));
-});
-
-function renderUsers(users, currentPage) {
-    const itemsPerPage = 10;
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedUsers = users.slice(startIndex, endIndex);
-
-    const userListContainer = document.getElementById("users-list");
-    userListContainer.innerHTML = "";
-
-    paginatedUsers.forEach(user => {
-        const userCard = document.createElement('div');
-        userCard.className = 'user-card';
-        userCard.dataset.id = user.id;
-
-        const isSelected = selectedRows.includes(user.id);
-        if (isSelected) {
-            userCard.classList.add('selected');
-        }
-
-        userCard.innerHTML = `
-            <p><strong>ID:</strong> ${user.id}</p>
-            <p><strong>Name:</strong> ${user.name}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
-            <button class="edit" onclick="editUser(${user.id})">Edit</button>
-            <button class="delete" onclick="deleteUser(${user.id})">Delete</button>
-            <input type="checkbox" class="select-checkbox" ${isSelected ? 'checked' : ''}>
-        `;
-
-        userListContainer.appendChild(userCard);
-    });
-
-    renderPagination(users.length, itemsPerPage, currentPage);
-}
-
-function renderPagination(totalItems, itemsPerPage, currentPage) {
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const paginationContainer = document.getElementById("pagination");
-    paginationContainer.innerHTML = "";
-
-    for (let i = 1; i <= totalPages; i++) {
-        const pageButton = document.createElement('button');
-        pageButton.innerText = i;
-        pageButton.classList.add('page-number');
-        pageButton.addEventListener('click', () => renderUsers(filteredUsers, i));
-        paginationContainer.appendChild(pageButton);
+    // Function to fetch data from the API
+    async function fetchData() {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      users = data;
+      renderTable();
     }
 
-    const firstPageButton = document.createElement('button');
-    firstPageButton.innerText = 'First';
-    firstPageButton.classList.add('first-page');
-    firstPageButton.addEventListener('click', () => renderUsers(filteredUsers, 1));
-    paginationContainer.appendChild(firstPageButton);
+    // Function to render the table
+    function renderTable() {
+      const table = document.getElementById('userTable');
+      table.innerHTML = '';
 
-    const prevPageButton = document.createElement('button');
-    prevPageButton.innerText = 'Previous';
-    prevPageButton.classList.add('previous-page');
-    prevPageButton.addEventListener('click', () => {
-        const prevPage = currentPage > 1 ? currentPage - 1 : 1;
-        renderUsers(filteredUsers, prevPage);
-    });
-    paginationContainer.appendChild(prevPageButton);
+      // Add table headers
+      const headers = Object.keys(users[0]);
+      const headerRow = document.createElement('tr');
+      headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerRow.appendChild(th);
+      });
+      table.appendChild(headerRow);
 
-    const nextPageButton = document.createElement('button');
-    nextPageButton.innerText = 'Next';
-    nextPageButton.classList.add('next-page');
-    nextPageButton.addEventListener('click', () => {
-        const nextPage = currentPage < totalPages ? currentPage + 1 : totalPages;
-        renderUsers(filteredUsers, nextPage);
-    });
-    paginationContainer.appendChild(nextPageButton);
+      // Add table rows
+      const startIndex = (currentPage - 1) * 10;
+      const endIndex = startIndex + 10;
+      const rowsToDisplay = users.slice(startIndex, endIndex);
 
-    const lastPageButton = document.createElement('button');
-    lastPageButton.innerText = 'Last';
-    lastPageButton.classList.add('last-page');
-    lastPageButton.addEventListener('click', () => renderUsers(filteredUsers, totalPages));
-    paginationContainer.appendChild(lastPageButton);
-}
+      rowsToDisplay.forEach(rowData => {
+        const row = document.createElement('tr');
+        headers.forEach(header => {
+          const td = document.createElement('td');
+          td.textContent = rowData[header];
+          row.appendChild(td);
+        });
 
-function editUser(userId) {
-    // Implement in-place editing logic here
-    console.log(`Editing user with ID ${userId}`);
-}
+        // Add edit and delete buttons to each row
+        const editButton = createButton('edit', 'Edit', () => editRow(row));
+        const deleteButton = createButton('delete', 'Delete', () => deleteRow(row));
+        row.appendChild(editButton);
+        row.appendChild(deleteButton);
 
-function deleteUser(userId) {
-    // Implement in-memory deletion logic here
-    console.log(`Deleting user with ID ${userId}`);
-}
+        table.appendChild(row);
+      });
 
-function deleteSelected() {
-    // Implement logic to delete selected rows
-    console.log("Deleting selected rows:", selectedRows);
-}
+      updatePagination();
+    }
+
+    // Function to create action buttons
+    function createButton(className, text, onClick) {
+      const button = document.createElement('button');
+      button.className = className;
+      button.textContent = text;
+      button.addEventListener('click', onClick);
+      return button;
+    }
+
+    // Function to handle row editing
+    function editRow(row) {
+      // Implement row editing logic here
+      console.log('Editing row:', row);
+    }
+
+    // Function to handle row deletion
+    function deleteRow(row) {
+      // Implement row deletion logic here
+      console.log('Deleting row:', row);
+    }
+
+    // Function to handle selected rows
+    function handleRowSelection(row) {
+      const index = selectedRows.indexOf(row);
+      if (index === -1) {
+        selectedRows.push(row);
+      } else {
+        selectedRows.splice(index, 1);
+      }
+
+      renderTable();
+    }
+
+    // Function to delete selected rows
+    function deleteSelected() {
+      // Implement bulk delete logic here
+      console.log('Deleting selected rows:', selectedRows);
+      selectedRows = [];
+      renderTable();
+    }
+
+    // Function to handle pagination
+    function gotoPage(page) {
+      currentPage = page;
+      renderTable();
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+      }
+    }
+
+    // Function to update pagination information
+    function updatePagination() {
+      const totalRecords = users.length;
+      totalPages = Math.ceil(totalRecords / 10);
+      document.getElementById('currentPage').textContent = `Page ${currentPage} of ${totalPages}`;
+    }
+
+    // Function to handle search
+    function search() {
+      const searchTerm = document.getElementById('search').value.toLowerCase();
+      if (searchTerm.trim() === '') {
+        fetchData();
+      } else {
+        const filteredUsers = users.filter(user =>
+          Object.values(user).some(value => value.toString().toLowerCase().includes(searchTerm))
+        );
+        currentPage = 1;
+        users = filteredUsers;
+        renderTable();
+      }
+    }
+
+    // Initial data fetch and rendering
+    fetchData();
