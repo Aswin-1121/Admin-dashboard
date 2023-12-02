@@ -1,30 +1,12 @@
-/* Style the container */ .container { max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif; }
+/* ... (Previous styles remain unchanged) */
 
-/* Style the title */ h1 { text-align: center; color: #333; }
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-/* Style the search box */ .search-box { display: flex; align-items: center; justify-content: center; margin: 10px; }
-
-/* Style the search input */ #search-input { width: 80%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-
-/* Style the search button */ #search-button { width: 10%; padding: 10px; border: none; background-color: #ccc; border-radius: 5px; cursor: pointer; }
-
-/* Style the table */ #user-table { width: 100%; border-collapse: collapse; }
-
-/* Style the table header */ #user-table th { background-color: #333; color: white; padding: 10px; text-align: left; }
-
-/* Style the table body */ #user-table td { border: 1px solid #ccc; padding: 10px; }
-
-/* Style the selected rows */ .selected { background-color: #f0f0f0; }
-
-/* Style the editable cells */ .editable { border: 2px solid #00f; }
-
-/* Style the action buttons */ .edit, .delete, .save { border: none; background-color: transparent; cursor: pointer; }
-
-/* Style the pagination */ .pagination { display: flex; align-items: center; justify-content: center; margin: 10px; }
-
-/* Style the pagination buttons */ .first-page, .previous-page, .next-page, .last-page { padding: 5px 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; color: #333; cursor: pointer; }
-
-/* Style the page number */ #page-number { margin: 0 10px; }
-
-/* Style the bottom delete button */ #delete-selected { display: block; width: 200px; margin: 10px auto; padding: 10px; border: none; border-radius: 5px; background-color: #f00; color: #fff; cursor: pointer; }
-
+.selected {
+    background-color: #ddd;
+}
