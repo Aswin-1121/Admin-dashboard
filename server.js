@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 // Dummy user data
-const users = require('./users.json');
+const users = require('https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json');
 
 // Endpoint to get all users
 app.get('/users', (req, res) => {
