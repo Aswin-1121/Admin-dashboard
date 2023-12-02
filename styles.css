@@ -1,83 +1,30 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+/* Style the container */ .container { max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif; }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+/* Style the title */ h1 { text-align: center; color: #333; }
 
-h1 {
-    text-align: center;
-}
+/* Style the search box */ .search-box { display: flex; align-items: center; justify-content: center; margin: 10px; }
 
-.toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
+/* Style the search input */ #search-input { width: 80%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
 
-#search {
-    flex: 1;
-    margin-right: 10px;
-}
+/* Style the search button */ #search-button { width: 10%; padding: 10px; border: none; background-color: #ccc; border-radius: 5px; cursor: pointer; }
 
-button {
-    cursor: pointer;
-}
+/* Style the table */ #user-table { width: 100%; border-collapse: collapse; }
 
-.user-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
+/* Style the table header */ #user-table th { background-color: #333; color: white; padding: 10px; text-align: left; }
 
-.user-card p {
-    margin: 0;
-}
+/* Style the table body */ #user-table td { border: 1px solid #ccc; padding: 10px; }
 
-.edit,
-.delete,
-.select-checkbox {
-    margin-right: 5px;
-}
+/* Style the selected rows */ .selected { background-color: #f0f0f0; }
 
-.page-number,
-.first-page,
-.previous-page,
-.next-page,
-.last-page {
-    margin-right: 5px;
-}
+/* Style the editable cells */ .editable { border: 2px solid #00f; }
 
-@media screen and (max-width: 600px) {
-    .toolbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+/* Style the action buttons */ .edit, .delete, .save { border: none; background-color: transparent; cursor: pointer; }
 
-    #search {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
+/* Style the pagination */ .pagination { display: flex; align-items: center; justify-content: center; margin: 10px; }
 
-@media screen and (max-width: 400px) {
-    .user-card {
-        font-size: 14px;
-    }
+/* Style the pagination buttons */ .first-page, .previous-page, .next-page, .last-page { padding: 5px 10px; border: 1px solid #ccc; border-radius: 5px; background-color: #fff; color: #333; cursor: pointer; }
 
-    button {
-        font-size: 14px;
-    }
-}
+/* Style the page number */ #page-number { margin: 0 10px; }
+
+/* Style the bottom delete button */ #delete-selected { display: block; width: 200px; margin: 10px auto; padding: 10px; border: none; border-radius: 5px; background-color: #f00; color: #fff; cursor: pointer; }
+
