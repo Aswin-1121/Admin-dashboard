@@ -1,0 +1,12 @@
+/* ... (Previous styles remain unchanged) */
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.selected {
+    background-color: #ddd;
+}
