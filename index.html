@@ -1,31 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Management Interface</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   <div class="search-container">
-    <label for="search">Search:</label>
-    <input type="text" id="search" placeholder="Search...">
-    <button class="search-icon" onclick="search()">Search</button>
-  </div>
-
-  <table id="userTable">
-    <!-- Table headers will be added dynamically via JavaScript -->
-  </table>
-
-  <div class="pagination">
-    <button class="first-page" onclick="gotoPage(1)">First</button>
-    <button class="previous-page" onclick="prevPage()">Previous</button>
-    <span id="currentPage"></span>
-    <button class="next-page" onclick="nextPage()">Next</button>
-    <button class="last-page" onclick="gotoPage(totalPages)">Last</button>
-  </div>
-
-  <button class="bulk-delete" onclick="deleteSelected()">Delete Selected</button>
+    <div class="container">
+        <h1>User Management</h1>
+        <div id="users-list"></div>
+    </div>
 
     <script src="app.js"></script>
 </body>
