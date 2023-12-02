@@ -1,23 +1,29 @@
-<<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>User Management</h1>
-        <div class="toolbar">
-            <label for="search" class="search-icon">&#128269;</label>
-            <input type="text" id="search" placeholder="Search...">
-            <button onclick="deleteSelected()">Delete Selected</button>
-        </div>
-        <div id="users-list"></div>
-        <div id="pagination"></div>
-    </div>
-
-    <script src="app.js"></script>
-</body>
+<!–doctype html–> 
+<html>
+    <head>
+        <meta charset=“utf-8”>
+        <meta name=“viewport” content=“width=device-width, initial-scale=1”>
+        <title>User Interface</title>
+        <link rel=“stylesheet” href=“style.css”>
+    </head> <body>
+        <div class=“container”>
+            <h1>User Interface</h1>
+            <div class=“search-box”> 
+                <input type=“text” id=“search-input” placeholder=“Search…”>
+                <button id=“search-button” class=“search-icon”>🔍</button>
+            </div>
+            <table id=“user-table”>
+                <thead> <tr> <th><input type=“checkbox” id=“select-all”></th>
+                    <th>ID</th> <th>Name</th> <th>Email</th> <th>Phone</th> <th>Action</th>
+                </tr> </thead> <tbody id=“user-body”> <!-- User data will be populated here --> </tbody>
+            </table>
+            <div class=“pagination”> 
+                <button id=“first-page” class=“first-page”>First</button>
+                <button id=“previous-page” class=“previous-page”>Previous</button> 
+                <span id=“page-number”>Page 1 of 5</span> 
+                <button id=“next-page” class=“next-page”>Next</button>
+                <button id=“last-page” class=“last-page”>Last</button> </div> 
+            <button id=“delete-selected” class=“delete-selected”>Delete Selected</button> </div>
+        <script src=“script.js”></script>
+    </body>
 </html>
